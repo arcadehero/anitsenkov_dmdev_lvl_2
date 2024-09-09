@@ -10,17 +10,8 @@
     </parent>
 
     <artifactId>service</artifactId>
-    <packaging>jar</packaging>
-
-
-    <properties>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
 
     <dependencies>
-
         <dependency>
             <groupId>com.nitsenkov</groupId>
             <artifactId>common</artifactId>
@@ -42,7 +33,6 @@
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.12</version>
             </plugin>
         </plugins>
     </build>
