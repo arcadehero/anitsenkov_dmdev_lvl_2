@@ -1,13 +1,12 @@
-package com.nitsenkov.integration;
+package com.nitsenkov;
 
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class AppTest {
-
+public class ServiceIT {
     @Test
-    public void shouldPass() {
+    public void shouldPassIT() {
         assertTrue(true);
     }
 }
