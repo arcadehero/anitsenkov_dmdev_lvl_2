@@ -1,7 +1,8 @@
 package com.nitsenkov.entity.enums;
 
-public enum Status {
+public enum AccountStatus {
     ACTIVE,
+    INACTIVE,
     BLOCKED,
-    CANCELLED,
+    CLOSED
 }

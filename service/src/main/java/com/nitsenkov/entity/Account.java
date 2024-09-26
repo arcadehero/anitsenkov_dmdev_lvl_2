@@ -2,8 +2,7 @@ package com.nitsenkov.entity;
 
 import com.nitsenkov.entity.enums.AccountType;
 import com.nitsenkov.entity.enums.Currency;
-import com.nitsenkov.entity.enums.Status;
-import jakarta.persistence.Column;
+import com.nitsenkov.entity.enums.AccountStatus;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -28,23 +27,20 @@ import java.util.UUID;
 public class Account {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
-
-    private String number;
 
     @Enumerated(EnumType.STRING)
     private AccountType type;
 
-    @Column(name = "minor_amount")
-    private BigDecimal minorAmount;
-
+    private String number;
+    private BigDecimal amount;
     private Currency currency;
 
     @Enumerated(EnumType.STRING)
-    private Status status;
+    private AccountStatus status;
 
     @ManyToOne
-    @JoinColumn(name = "owner_id")
-    private User ownerId;
+    @JoinColumn(name = "users_id")
+    private User userId;
 }

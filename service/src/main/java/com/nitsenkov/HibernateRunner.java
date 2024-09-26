@@ -4,9 +4,10 @@ import com.nitsenkov.entity.Account;
 import com.nitsenkov.entity.Card;
 import com.nitsenkov.entity.Payment;
 import com.nitsenkov.entity.User;
+import com.nitsenkov.entity.enums.AccountStatus;
 import com.nitsenkov.entity.enums.AccountType;
 import com.nitsenkov.entity.enums.Currency;
-import com.nitsenkov.entity.enums.Status;
+import com.nitsenkov.entity.enums.UserRole;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy;
@@ -17,7 +18,6 @@ import static java.math.BigDecimal.valueOf;
 public class HibernateRunner {
 
     public static void main(String[] args) {
-
         Configuration configuration = new Configuration();
         configuration.addAnnotatedClass(User.class);
         configuration.addAnnotatedClass(Account.class);
@@ -26,26 +26,31 @@ public class HibernateRunner {
         configuration.setPhysicalNamingStrategy(new CamelCaseToUnderscoresNamingStrategy());
         configuration.configure();
 
-        try (SessionFactory sessionFactory = configuration.buildSessionFactory()) {
-            Session session = sessionFactory.openSession();
+        User user = User.builder()
+                .name("alex")
+                .surname("smith")
+                .email("alex123.smith@gmail.com")
+                .password("pass")
+                .role(UserRole.CLIENT)
+                .build();
+
+        Account account = Account.builder()
+                .type(AccountType.DEBIT)
+                .currency(Currency.USD)
+                .number("123")
+                .amount(valueOf(100))
+                .userId(user)
+                .status(AccountStatus.ACTIVE)
+                .build();
+
+
+        try (SessionFactory sessionFactory = configuration.buildSessionFactory();
+             Session session = sessionFactory.openSession()) {
+
             session.beginTransaction();
-
-            User user = User.builder()
-                    .email("alex.smith@gmail.com")
-                    .name("alex")
-                    .surname("smith")
-                    .build();
-
-            Account account = Account.builder()
-                    .currency(Currency.UAE)
-                    .minorAmount(valueOf(1000L))
-                    .number("12")
-                    .ownerId(user)
-                    .status(Status.ACTIVE)
-                    .type(AccountType.DEBIT)
-                    .build();
-
             session.persist(user);
+            session.persist(account);
+
             session.getTransaction().commit();
         }
     }

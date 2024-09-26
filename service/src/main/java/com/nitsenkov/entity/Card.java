@@ -1,7 +1,7 @@
 package com.nitsenkov.entity;
 
+import com.nitsenkov.entity.enums.CardStatus;
 import com.nitsenkov.entity.enums.CardType;
-import com.nitsenkov.entity.enums.Status;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -15,6 +15,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.UUID;
 
 @Data
@@ -25,15 +26,14 @@ import java.util.UUID;
 public class Card {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
-
     private String number;
-
     private CardType type;
+    private LocalDate expiryDate;
 
     @Enumerated(EnumType.STRING)
-    private Status status;
+    private CardStatus status;
 
     @ManyToOne
     @JoinColumn(name = "account_id")
