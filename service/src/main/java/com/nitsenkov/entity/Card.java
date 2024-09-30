@@ -2,9 +2,11 @@ package com.nitsenkov.entity;
 
 import com.nitsenkov.entity.enums.CardStatus;
 import com.nitsenkov.entity.enums.CardType;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -35,7 +37,7 @@ public class Card {
     @Enumerated(EnumType.STRING)
     private CardStatus status;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "account_id")
-    private Account accountId;
+    private Account account;
 }

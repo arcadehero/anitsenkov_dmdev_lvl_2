@@ -39,7 +39,7 @@ public class HibernateRunner {
                 .currency(Currency.USD)
                 .number("123")
                 .amount(valueOf(100))
-                .userId(user)
+                .user(user)
                 .status(AccountStatus.ACTIVE)
                 .build();
 

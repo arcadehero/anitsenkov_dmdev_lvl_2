@@ -1,12 +1,13 @@
 package com.nitsenkov.entity;
 
-import com.nitsenkov.entity.enums.AccountStatus;
 import com.nitsenkov.entity.enums.Currency;
 import com.nitsenkov.entity.enums.PaymentStatus;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -31,19 +32,21 @@ public class Payment {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @ManyToOne
-    private Account senderAccountId;
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Account senderAccount;
 
-    @ManyToOne
-    private Account recipientAccountId;
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Account recipientAccount;
 
     private BigDecimal amount;
     private Currency currency;
-
 
     @Column(name = "payment_date")
     private LocalDateTime paymentDate;
 
     @Enumerated(EnumType.STRING)
     private PaymentStatus status;
+
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Account account;
 }
