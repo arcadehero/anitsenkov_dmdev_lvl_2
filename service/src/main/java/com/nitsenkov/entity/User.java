@@ -1,22 +1,30 @@
 package com.nitsenkov.entity;
 
 import com.nitsenkov.entity.enums.UserRole;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Data
 @NoArgsConstructor
+@ToString(exclude = "accounts")
+@EqualsAndHashCode(exclude = "accounts")
 @AllArgsConstructor
 @Builder
 @Entity
@@ -33,4 +41,13 @@ public class User {
 
     @Enumerated(EnumType.STRING)
     private UserRole role;
+
+    @Builder.Default
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private Set<Account> accounts = new HashSet<>();
+
+    public void addAccount(Account account) {
+        accounts.add(account);
+        account.setUser(this);
+    }
 }

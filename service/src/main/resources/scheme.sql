@@ -52,4 +52,4 @@ DROP table account CASCADE;
 DROP table card CASCADE;
 DROP table payment CASCADE;
 
-SELECT * FROM account WHERE users_id = '0849be80-734c-4c41-8eed-9383e4af9c39'
+SELECT * FROM users WHERE name = 'alex'
