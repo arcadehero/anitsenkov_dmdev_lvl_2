@@ -17,8 +17,8 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -42,9 +42,8 @@ public class User {
     @Enumerated(EnumType.STRING)
     private UserRole role;
 
-    @Builder.Default
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private Set<Account> accounts = new HashSet<>();
+    private List<Account> accounts = new ArrayList<>();
 
     public void addAccount(Account account) {
         accounts.add(account);

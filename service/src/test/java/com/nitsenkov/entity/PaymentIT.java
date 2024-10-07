@@ -9,7 +9,7 @@ import static com.nitsenkov.util.TestObjectsBuilder.getAccount;
 import static com.nitsenkov.util.TestObjectsBuilder.getUser;
 import static org.assertj.core.api.Assertions.assertThat;
 
-class PaymentTestIT extends BaseIntegrationTest {
+class PaymentIT extends BaseIntegrationTest {
 
     @Test
     void create() {
