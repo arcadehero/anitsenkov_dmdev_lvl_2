@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import static com.nitsenkov.util.TestObjectsBuilder.getUser;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class UserTestIT extends BaseIntegrationTest {
+public class UserIT extends BaseIntegrationTest {
 
     @Test
     void create() {

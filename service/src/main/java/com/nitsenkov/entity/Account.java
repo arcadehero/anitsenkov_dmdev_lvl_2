@@ -1,8 +1,8 @@
 package com.nitsenkov.entity;
 
+import com.nitsenkov.entity.enums.AccountStatus;
 import com.nitsenkov.entity.enums.AccountType;
 import com.nitsenkov.entity.enums.Currency;
-import com.nitsenkov.entity.enums.AccountStatus;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -22,8 +22,8 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import java.math.BigDecimal;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -49,17 +49,15 @@ public class Account {
     @Enumerated(EnumType.STRING)
     private AccountStatus status;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "users_id")
     private User user;
 
-    @Builder.Default
-    @OneToMany(mappedBy = "account", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<Card> cards = new HashSet<>();
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
+    private List<Card> cards = new ArrayList<>();
 
-    @Builder.Default
-    @OneToMany(mappedBy = "senderAccount", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<Payment> payments = new HashSet<>();
+    @OneToMany(mappedBy = "senderAccount", cascade = CascadeType.ALL)
+    private List<Payment> payments = new ArrayList<>();
 
     public void addCard(Card card) {
         cards.add(card);

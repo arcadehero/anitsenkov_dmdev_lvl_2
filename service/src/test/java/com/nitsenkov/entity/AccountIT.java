@@ -8,17 +8,18 @@ import static com.nitsenkov.util.TestObjectsBuilder.getAccount;
 import static com.nitsenkov.util.TestObjectsBuilder.getUser;
 import static org.assertj.core.api.Assertions.assertThat;
 
-class AccountTestIT extends BaseIntegrationTest {
+class AccountIT extends BaseIntegrationTest {
 
     @Test
     void create() {
         Account account = getAccount(getUser("email"));
-
         session.persist(account);
         session.flush();
         session.clear();
 
-        assertThat(session.get(Account.class, account.getId())).isNotNull();
+        Account actualAccount = session.get(Account.class, account.getId());
+
+        assertThat(actualAccount).isNotNull();
     }
     
     @Test
