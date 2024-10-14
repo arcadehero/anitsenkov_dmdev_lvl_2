@@ -12,6 +12,7 @@ import com.nitsenkov.entity.enums.Currency;
 import com.nitsenkov.entity.enums.PaymentStatus;
 import com.nitsenkov.entity.enums.UserRole;
 
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -20,7 +21,6 @@ import static java.math.BigDecimal.valueOf;
 public class TestObjectsBuilder {
 
     public static Payment getPayment(Account... account) {
-
         return Payment.builder()
                 .senderAccount(account[0])
                 .recipientAccount(account[1])
@@ -47,9 +47,8 @@ public class TestObjectsBuilder {
                 .number("123456789")
                 .status(AccountStatus.ACTIVE)
                 .currency(Currency.EUR)
-                .amount(valueOf(100L))
+                .amount(valueOf(100L).setScale(2, RoundingMode.HALF_UP))
                 .build();
-
     }
 
     public static User getUser(String email) {
