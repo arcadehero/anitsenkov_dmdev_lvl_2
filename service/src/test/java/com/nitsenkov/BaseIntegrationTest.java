@@ -25,7 +25,7 @@ public abstract class BaseIntegrationTest {
 
     @BeforeEach
     void openSession() {
-        session = sessionFactory.openSession();
+        session = sessionFactory.getCurrentSession();
         session.beginTransaction();
     }
 

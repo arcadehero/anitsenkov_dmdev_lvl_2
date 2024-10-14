@@ -1,55 +1,35 @@
 package com.nitsenkov;
 
-import com.nitsenkov.entity.Account;
-import com.nitsenkov.entity.Card;
-import com.nitsenkov.entity.Payment;
+import com.nitsenkov.dao.UserRepository;
 import com.nitsenkov.entity.User;
-import com.nitsenkov.entity.enums.AccountStatus;
-import com.nitsenkov.entity.enums.AccountType;
-import com.nitsenkov.entity.enums.Currency;
 import com.nitsenkov.entity.enums.UserRole;
+import com.nitsenkov.util.HibernateUtil;
+import jakarta.transaction.Transactional;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy;
-import org.hibernate.cfg.Configuration;
 
-import static java.math.BigDecimal.valueOf;
+import java.lang.reflect.Proxy;
 
 public class HibernateRunner {
 
+    @Transactional
     public static void main(String[] args) {
-        Configuration configuration = new Configuration();
-        configuration.addAnnotatedClass(User.class);
-        configuration.addAnnotatedClass(Account.class);
-        configuration.addAnnotatedClass(Card.class);
-        configuration.addAnnotatedClass(Payment.class);
-        configuration.setPhysicalNamingStrategy(new CamelCaseToUnderscoresNamingStrategy());
-        configuration.configure();
-
         User user = User.builder()
                 .name("alex")
                 .surname("smith")
-                .email("alex123.smith@gmail.com")
+                .email("alex999.smith@gmail.com")
                 .password("pass")
                 .role(UserRole.CLIENT)
                 .build();
 
-        Account account = Account.builder()
-                .type(AccountType.DEBIT)
-                .currency(Currency.USD)
-                .number("123")
-                .amount(valueOf(100))
-                .user(user)
-                .status(AccountStatus.ACTIVE)
-                .build();
-
-
-        try (SessionFactory sessionFactory = configuration.buildSessionFactory();
-             Session session = sessionFactory.openSession()) {
+        try (SessionFactory sessionFactory = HibernateUtil.buildSessionFactory()) {
+            var session = (Session)Proxy.newProxyInstance(SessionFactory.class.getClassLoader(), new Class[]{Session.class},
+                    ((proxy, method, args1) -> method.invoke(sessionFactory.getCurrentSession(), args1)));
 
             session.beginTransaction();
-            session.persist(user);
-            session.persist(account);
+
+            UserRepository userRepository = new UserRepository(session);
+            userRepository.save(user);
 
             session.getTransaction().commit();
         }
