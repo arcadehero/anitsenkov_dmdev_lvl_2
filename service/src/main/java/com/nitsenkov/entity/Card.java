@@ -45,7 +45,7 @@ public class Card {
     @Enumerated(EnumType.STRING)
     private CardStatus status;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "account_id")
     private Account account;
 }

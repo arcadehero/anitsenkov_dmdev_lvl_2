@@ -1,10 +1,9 @@
 package com.nitsenkov;
 
-import com.nitsenkov.dao.UserRepository;
+import com.nitsenkov.repository.UserRepository;
 import com.nitsenkov.entity.User;
 import com.nitsenkov.entity.enums.UserRole;
 import com.nitsenkov.util.HibernateUtil;
-import jakarta.transaction.Transactional;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
@@ -12,7 +11,6 @@ import java.lang.reflect.Proxy;
 
 public class HibernateRunner {
 
-    @Transactional
     public static void main(String[] args) {
         User user = User.builder()
                 .name("alex")

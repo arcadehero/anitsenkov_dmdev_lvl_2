@@ -4,6 +4,7 @@ import com.nitsenkov.BaseIntegrationTest;
 import com.nitsenkov.entity.Account;
 import com.nitsenkov.entity.User;
 import com.nitsenkov.entity.enums.AccountType;
+import com.nitsenkov.repository.AccountRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -42,9 +43,9 @@ public class AccountRepositoryIT extends BaseIntegrationTest {
         account.setType(AccountType.CREDIT);
 
         accountRepository.update(account);
+
         session.clear();
         Optional<Account> actualAccount = accountRepository.findById(savedAccount.getId());
-
         actualAccount.ifPresent(a -> assertThat(a.getType()).isEqualTo(AccountType.CREDIT));
     }
 
@@ -53,8 +54,8 @@ public class AccountRepositoryIT extends BaseIntegrationTest {
         Account savedAccount = accountRepository.save(account);
 
         accountRepository.delete(savedAccount);
-        Optional<Account> actualAccount = accountRepository.findById(savedAccount.getId());
 
+        Optional<Account> actualAccount = accountRepository.findById(savedAccount.getId());
         assertThat(actualAccount).isEmpty();
     }
 

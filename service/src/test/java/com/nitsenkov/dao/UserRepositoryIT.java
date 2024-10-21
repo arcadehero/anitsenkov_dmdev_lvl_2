@@ -3,6 +3,7 @@ package com.nitsenkov.dao;
 import com.nitsenkov.BaseIntegrationTest;
 import com.nitsenkov.entity.User;
 import com.nitsenkov.entity.enums.UserRole;
+import com.nitsenkov.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

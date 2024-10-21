@@ -4,6 +4,7 @@ import com.nitsenkov.BaseIntegrationTest;
 import com.nitsenkov.entity.Account;
 import com.nitsenkov.entity.Payment;
 import com.nitsenkov.entity.enums.Currency;
+import com.nitsenkov.repository.PaymentRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -29,19 +30,15 @@ public class PaymentRepositoryIT extends BaseIntegrationTest {
         paymentRepository = new PaymentRepository(session);
         firstAccount = getAccount(getUser("email1"));
         secondAccount = getAccount(getUser("email2"));
-        thirdAccount = getAccount(getUser("email3"));
-        fourthAccount = getAccount(getUser("email4"));
         payment = getPayment(firstAccount, secondAccount);
-        payment1 = getPayment(thirdAccount, fourthAccount);
     }
 
     @Test
     void savePayment() {
         Payment savedPayment = paymentRepository.save(payment);
+
         session.clear();
-
         Optional<Payment> actualPayment = paymentRepository.findById(savedPayment.getId());
-
         assertThat(actualPayment).isNotNull();
     }
 
@@ -51,9 +48,9 @@ public class PaymentRepositoryIT extends BaseIntegrationTest {
         payment.setCurrency(Currency.RUB);
 
         paymentRepository.update(payment);
+
         session.clear();
         Optional<Payment> actualPayment = paymentRepository.findById(startPayment.getId());
-
         actualPayment.ifPresent(p -> assertThat(p.getCurrency()).isEqualTo(Currency.RUB));
     }
 
@@ -69,6 +66,9 @@ public class PaymentRepositoryIT extends BaseIntegrationTest {
 
     @Test
     void findPaymentById() {
+        thirdAccount = getAccount(getUser("email3"));
+        fourthAccount = getAccount(getUser("email4"));
+        payment1 = getPayment(thirdAccount, fourthAccount);
         Payment startPayment = paymentRepository.save(payment);
         Payment startPayment1 = paymentRepository.save(payment1);
         session.clear();
