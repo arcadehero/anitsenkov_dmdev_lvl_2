@@ -20,6 +20,7 @@ public class UserRepositoryIT extends BaseIntegrationTest {
     @BeforeEach
     void setUp() {
         userRepository = new UserRepository(session);
+        userRepository = context.getBean("userRepository", UserRepository.class);
         user = getUser("testEmail");
     }
 
