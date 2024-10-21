@@ -1,6 +1,7 @@
-package com.nitsenkov.dao;
+package com.nitsenkov.repository;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Optional;
 
 public interface Repository<K extends Serializable, E> {
@@ -12,4 +13,6 @@ public interface Repository<K extends Serializable, E> {
     void update(E entity);
 
     Optional<E> findById(K id);
+
+    List<E> findAll();
 }

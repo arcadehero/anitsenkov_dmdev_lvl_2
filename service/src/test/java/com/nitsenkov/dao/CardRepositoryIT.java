@@ -5,6 +5,7 @@ import com.nitsenkov.entity.Account;
 import com.nitsenkov.entity.Card;
 import com.nitsenkov.entity.User;
 import com.nitsenkov.entity.enums.CardStatus;
+import com.nitsenkov.repository.CardRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

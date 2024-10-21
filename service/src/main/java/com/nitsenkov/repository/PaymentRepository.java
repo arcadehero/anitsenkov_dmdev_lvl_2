@@ -1,4 +1,4 @@
-package com.nitsenkov.dao;
+package com.nitsenkov.repository;
 
 import com.nitsenkov.entity.Payment;
 import jakarta.persistence.EntityManager;
