@@ -10,7 +10,6 @@ import java.util.UUID;
 @Repository
 public class CardRepository extends RepositoryBase<UUID, Card> {
 
-    @Autowired
     public CardRepository(EntityManager entityManager) {
         super(Card.class, entityManager);
     }

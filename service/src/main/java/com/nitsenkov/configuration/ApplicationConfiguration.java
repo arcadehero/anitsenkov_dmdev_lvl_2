@@ -1,6 +1,6 @@
 package com.nitsenkov.configuration;
 
-import com.nitsenkov.util.HibernateTestUtil;
+import com.nitsenkov.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.context.annotation.Bean;
@@ -13,13 +13,13 @@ import java.lang.reflect.Proxy;
 @ComponentScan(basePackages = "com.nitsenkov")
 public class ApplicationConfiguration {
 
-    @Bean
-    public SessionFactory getSessionFactory() {
-        return HibernateTestUtil.buildSessionFactory();
+    @Bean(destroyMethod = "close")
+    public SessionFactory sessionFactory() {
+        return HibernateUtil.buildSessionFactory();
     }
 
     @Bean
-    public Session getProxySession(SessionFactory sessionFactory) {
+    public Session session(SessionFactory sessionFactory) {
         return (Session) Proxy.newProxyInstance(SessionFactory.class.getClassLoader(), new Class[]{Session.class},
                 (proxy, method, args1) -> method.invoke(sessionFactory.getCurrentSession(), args1));
     }

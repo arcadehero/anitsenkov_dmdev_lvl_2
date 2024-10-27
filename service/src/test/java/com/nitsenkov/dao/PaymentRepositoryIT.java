@@ -27,7 +27,7 @@ public class PaymentRepositoryIT extends BaseIntegrationTest {
 
     @BeforeEach
     void setUp() {
-        paymentRepository = new PaymentRepository(session);
+        paymentRepository = context.getBean("paymentRepository", PaymentRepository.class);
         firstAccount = getAccount(getUser("email1"));
         secondAccount = getAccount(getUser("email2"));
         payment = getPayment(firstAccount, secondAccount);

@@ -16,7 +16,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class AccountRepositoryIT extends BaseIntegrationTest {
 
-    private AccountRepository accountRepository;
+    private final AccountRepository accountRepository = context.getBean("accountRepository", AccountRepository.class);
     private User user;
     private Account account;
 
@@ -24,7 +24,7 @@ public class AccountRepositoryIT extends BaseIntegrationTest {
     void setUp() {
         user = getUser("testEmail");
         account = getAccount(user);
-        accountRepository = new AccountRepository(session);
+//        accountRepository = context.getBean("accountRepository", AccountRepository.class);
     }
 
     @Test
