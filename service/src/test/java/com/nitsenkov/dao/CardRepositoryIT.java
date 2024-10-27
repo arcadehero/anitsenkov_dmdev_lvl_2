@@ -26,7 +26,7 @@ class CardRepositoryIT extends BaseIntegrationTest {
 
     @BeforeEach
     void setUp() {
-        cardRepository = new CardRepository(session);
+        cardRepository = context.getBean("cardRepository", CardRepository.class);
         user = getUser("testEmail");
         account = getAccount(user);
         card = getCard(account);

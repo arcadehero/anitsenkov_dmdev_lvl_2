@@ -1,35 +1,26 @@
 package com.nitsenkov;
 
-import com.nitsenkov.configuration.ApplicationConfiguration;
-import com.nitsenkov.util.HibernateTestUtil;
+import com.nitsenkov.configuration.TestApplicationConfiguration;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.annotation.Bean;
-
-import java.lang.reflect.Proxy;
 
 public abstract class BaseIntegrationTest {
 
-    private static SessionFactory sessionFactory;
-    protected static AnnotationConfigApplicationContext context;
     protected static Session session;
+    protected static AnnotationConfigApplicationContext context;
 
     @BeforeAll
     static void createContext() {
-//        sessionFactory = HibernateTestUtil.buildSessionFactory();
-//        session = (Session) Proxy.newProxyInstance(SessionFactory.class.getClassLoader(), new Class[]{Session.class},
-//                (proxy, method, args1) -> method.invoke(sessionFactory.getCurrentSession(), args1));
-        context = new AnnotationConfigApplicationContext(ApplicationConfiguration.class);
+        context = new AnnotationConfigApplicationContext(TestApplicationConfiguration.class);
     }
 
     @AfterAll
-    static void closeSessionFactory() {
-        sessionFactory.close();
+    static void closeContext() {
+        context.close();
     }
 
     @BeforeEach
