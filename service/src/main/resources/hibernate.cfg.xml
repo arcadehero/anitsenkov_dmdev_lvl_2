@@ -13,10 +13,10 @@
         <property name="format_sql">true</property>
         <property name="hibernate.current_session_context_class">thread</property>
 
-        <mapping class="com.nitsenkov.entity.User"/>
-        <mapping class="com.nitsenkov.entity.Account"/>
-        <mapping class="com.nitsenkov.entity.Card"/>
-        <mapping class="com.nitsenkov.entity.Payment"/>
+        <mapping class="com.nitsenkov.integration.entity.User"/>
+        <mapping class="com.nitsenkov.integration.entity.Account"/>
+        <mapping class="com.nitsenkov.integration.entity.Card"/>
+        <mapping class="com.nitsenkov.integration.entity.Payment"/>
         <!-- DB schema will be updated if needed -->
         <!-- <property name="hibernate.hbm2ddl.auto">update</property> -->
     </session-factory>

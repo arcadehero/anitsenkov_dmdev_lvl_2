@@ -1,16 +1,9 @@
 package com.nitsenkov.repository;
 
 import com.nitsenkov.entity.Account;
-import jakarta.persistence.EntityManager;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.UUID;
 
-@Repository
-public class AccountRepository extends RepositoryBase<UUID, Account> {
-
-    public AccountRepository(EntityManager entityManager) {
-        super(Account.class, entityManager);
-    }
+public interface AccountRepository extends JpaRepository<UUID, Account> {
 }

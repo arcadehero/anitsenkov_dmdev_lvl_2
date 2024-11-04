@@ -1,20 +1,20 @@
-package com.nitsenkov.dao;
+package com.nitsenkov.integration.dao;
 
-import com.nitsenkov.BaseIntegrationTest;
+import com.nitsenkov.integration.BaseIntegrationTest;
 import com.nitsenkov.entity.Account;
 import com.nitsenkov.entity.Payment;
 import com.nitsenkov.entity.enums.Currency;
 import com.nitsenkov.repository.PaymentRepository;
+import com.nitsenkov.util.TestObjectsBuilder;
+import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
 
-import static com.nitsenkov.util.TestObjectsBuilder.getAccount;
-import static com.nitsenkov.util.TestObjectsBuilder.getPayment;
-import static com.nitsenkov.util.TestObjectsBuilder.getUser;
 import static org.assertj.core.api.Assertions.assertThat;
 
+@RequiredArgsConstructor
 public class PaymentRepositoryIT extends BaseIntegrationTest {
 
     private Account firstAccount;
@@ -23,14 +23,13 @@ public class PaymentRepositoryIT extends BaseIntegrationTest {
     private Account fourthAccount;
     private Payment payment;
     private Payment payment1;
-    private PaymentRepository paymentRepository;
+    private final PaymentRepository paymentRepository;
 
     @BeforeEach
     void setUp() {
-        paymentRepository = context.getBean("paymentRepository", PaymentRepository.class);
-        firstAccount = getAccount(getUser("email1"));
-        secondAccount = getAccount(getUser("email2"));
-        payment = getPayment(firstAccount, secondAccount);
+        firstAccount = TestObjectsBuilder.getAccount(TestObjectsBuilder.getUser("email1"));
+        secondAccount = TestObjectsBuilder.getAccount(TestObjectsBuilder.getUser("email2"));
+        payment = TestObjectsBuilder.getPayment(firstAccount, secondAccount);
     }
 
     @Test
@@ -66,9 +65,9 @@ public class PaymentRepositoryIT extends BaseIntegrationTest {
 
     @Test
     void findPaymentById() {
-        thirdAccount = getAccount(getUser("email3"));
-        fourthAccount = getAccount(getUser("email4"));
-        payment1 = getPayment(thirdAccount, fourthAccount);
+        thirdAccount = TestObjectsBuilder.getAccount(TestObjectsBuilder.getUser("email3"));
+        fourthAccount = TestObjectsBuilder.getAccount(TestObjectsBuilder.getUser("email4"));
+        payment1 = TestObjectsBuilder.getPayment(thirdAccount, fourthAccount);
         Payment startPayment = paymentRepository.save(payment);
         Payment startPayment1 = paymentRepository.save(payment1);
         session.clear();

@@ -27,7 +27,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Builder
 @Entity
-public class Payment {
+public class Payment implements BaseEntity<UUID> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

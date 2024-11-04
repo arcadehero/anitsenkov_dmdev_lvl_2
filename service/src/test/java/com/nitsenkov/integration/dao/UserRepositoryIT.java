@@ -1,26 +1,27 @@
-package com.nitsenkov.dao;
+package com.nitsenkov.integration.dao;
 
-import com.nitsenkov.BaseIntegrationTest;
 import com.nitsenkov.entity.User;
 import com.nitsenkov.entity.enums.UserRole;
+import com.nitsenkov.integration.BaseIntegrationTest;
 import com.nitsenkov.repository.UserRepository;
+import com.nitsenkov.util.TestObjectsBuilder;
+import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
 
-import static com.nitsenkov.util.TestObjectsBuilder.getUser;
 import static org.assertj.core.api.Assertions.assertThat;
 
+@RequiredArgsConstructor
 public class UserRepositoryIT extends BaseIntegrationTest {
 
     private User user;
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     @BeforeEach
     void setUp() {
-        userRepository = context.getBean("userRepository", UserRepository.class);
-        user = getUser("testEmail");
+        user = TestObjectsBuilder.getUser("testEmail");
     }
 
     @Test
@@ -37,7 +38,7 @@ public class UserRepositoryIT extends BaseIntegrationTest {
         User savedUser = userRepository.save(user);
         user.setRole(UserRole.ADMINISTRATOR);
 
-        userRepository.update(user);
+        userRepository.(user);
         session.clear();
         Optional<User> actualUser = userRepository.findById(savedUser.getId());
 
@@ -56,9 +57,9 @@ public class UserRepositoryIT extends BaseIntegrationTest {
 
     @Test
     void findUserById() {
-        User user1 = getUser("testEmail1");
-        User user2 = getUser("testEmail2");
-        User user3 = getUser("testEmail3");
+        User user1 = TestObjectsBuilder.getUser("testEmail1");
+        User user2 = TestObjectsBuilder.getUser("testEmail2");
+        User user3 = TestObjectsBuilder.getUser("testEmail3");
         userRepository.save(user);
         userRepository.save(user1);
         userRepository.save(user2);

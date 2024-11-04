@@ -1,3 +1,6 @@
+-- liquibase formatted sql
+
+-- changeset anitsenkov:1
 CREATE TABLE IF NOT EXISTS users
 (
     id       uuid PRIMARY KEY,
@@ -7,7 +10,9 @@ CREATE TABLE IF NOT EXISTS users
     password VARCHAR(128) NOT NULL,
     role     VARCHAR(32)  NOT NULL
 );
+-- rollback DROP TABLE users
 
+-- changeset anitsenkov:2
 CREATE TABLE IF NOT EXISTS account
 (
     id       uuid PRIMARY KEY,
@@ -18,7 +23,9 @@ CREATE TABLE IF NOT EXISTS account
     status   VARCHAR(128) NOT NULL,
     users_id uuid REFERENCES users (id)
 );
+-- rollback DROP TABLE account
 
+-- changeset anitsenkov:3
 CREATE TABLE IF NOT EXISTS card
 (
     id           uuid PRIMARY KEY,
@@ -28,7 +35,9 @@ CREATE TABLE IF NOT EXISTS card
     expired_date DATE         NOT NULL,
     account_id   uuid REFERENCES account (id)
 );
+-- rollback DROP TABLE card
 
+-- changeset anitsenkov:4
 CREATE TABLE IF NOT EXISTS payment
 (
     id                   uuid PRIMARY KEY,
@@ -40,9 +49,10 @@ CREATE TABLE IF NOT EXISTS payment
     payment_date         DATE                         NOT NULL,
     status               VARCHAR(128)                 NOT NULL
 );
+-- rollback DROP TABLE payment
 
-CREATE INDEX IF NOT EXISTS account_card_idx ON card (account_id);
-
-CREATE INDEX IF NOT EXISTS account_users_id_idx ON account (users_id);
-
-CREATE INDEX IF NOT EXISTS users_email_idx ON users (email);
+--CREATE INDEX IF NOT EXISTS account_card_idx ON card (account_id);
+--
+--CREATE INDEX IF NOT EXISTS account_users_id_idx ON account (users_id);
+--
+--CREATE INDEX IF NOT EXISTS users_email_idx ON users (email);
