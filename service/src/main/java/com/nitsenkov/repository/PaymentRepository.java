@@ -1,16 +1,9 @@
 package com.nitsenkov.repository;
 
 import com.nitsenkov.entity.Payment;
-import jakarta.persistence.EntityManager;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.UUID;
 
-@Repository
-public class PaymentRepository extends RepositoryBase<UUID, Payment> {
-
-    public PaymentRepository(EntityManager entityManager) {
-        super(Payment.class, entityManager);
-    }
+public interface PaymentRepository extends JpaRepository<UUID, Payment> {
 }

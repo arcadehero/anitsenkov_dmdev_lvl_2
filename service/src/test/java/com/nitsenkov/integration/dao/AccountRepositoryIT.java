@@ -1,30 +1,30 @@
-package com.nitsenkov.dao;
+package com.nitsenkov.integration.dao;
 
-import com.nitsenkov.BaseIntegrationTest;
+import com.nitsenkov.integration.BaseIntegrationTest;
 import com.nitsenkov.entity.Account;
 import com.nitsenkov.entity.User;
 import com.nitsenkov.entity.enums.AccountType;
+import com.nitsenkov.util.TestObjectsBuilder;
 import com.nitsenkov.repository.AccountRepository;
+import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
 
-import static com.nitsenkov.util.TestObjectsBuilder.getAccount;
-import static com.nitsenkov.util.TestObjectsBuilder.getUser;
 import static org.assertj.core.api.Assertions.assertThat;
 
+@RequiredArgsConstructor
 public class AccountRepositoryIT extends BaseIntegrationTest {
 
-    private final AccountRepository accountRepository = context.getBean("accountRepository", AccountRepository.class);
+    private final AccountRepository accountRepository;
     private User user;
     private Account account;
 
     @BeforeEach
     void setUp() {
-        user = getUser("testEmail");
-        account = getAccount(user);
-//        accountRepository = context.getBean("accountRepository", AccountRepository.class);
+        user = TestObjectsBuilder.getUser("testEmail");
+        account = TestObjectsBuilder.getAccount(user);
     }
 
     @Test
@@ -61,12 +61,12 @@ public class AccountRepositoryIT extends BaseIntegrationTest {
 
     @Test
     void findAccountById() {
-        User user1 = getUser("testEmail1");
-        Account account1 = getAccount(user1);
-        User user2 = getUser("testEmail2");
-        Account account2 = getAccount(user2);
-        User user3 = getUser("testEmail3");
-        Account account3 = getAccount(user3);
+        User user1 = TestObjectsBuilder.getUser("testEmail1");
+        Account account1 = TestObjectsBuilder.getAccount(user1);
+        User user2 = TestObjectsBuilder.getUser("testEmail2");
+        Account account2 = TestObjectsBuilder.getAccount(user2);
+        User user3 = TestObjectsBuilder.getUser("testEmail3");
+        Account account3 = TestObjectsBuilder.getAccount(user3);
         account3.setType(AccountType.CREDIT);
         accountRepository.save(account);
         accountRepository.save(account1);

@@ -29,7 +29,7 @@ import java.util.UUID;
 @Builder
 @Entity
 @OptimisticLocking(type = OptimisticLockType.VERSION)
-public class Card {
+public class Card implements BaseEntity<UUID> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

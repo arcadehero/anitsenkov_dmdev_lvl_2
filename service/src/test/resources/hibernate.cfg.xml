@@ -11,9 +11,9 @@
         <property name="hibernate.hbm2ddl.auto">create</property>
         <property name="hibernate.current_session_context_class">thread</property>
 
-        <mapping class="com.nitsenkov.entity.User"/>
-        <mapping class="com.nitsenkov.entity.Account"/>
-        <mapping class="com.nitsenkov.entity.Card"/>
-        <mapping class="com.nitsenkov.entity.Payment"/>
+        <mapping class="com.nitsenkov.integration.entity.User"/>
+        <mapping class="com.nitsenkov.integration.entity.Account"/>
+        <mapping class="com.nitsenkov.integration.entity.Card"/>
+        <mapping class="com.nitsenkov.integration.entity.Payment"/>
     </session-factory>
 </hibernate-configuration>

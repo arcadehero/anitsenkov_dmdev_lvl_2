@@ -1,4 +1,4 @@
-package com.nitsenkov;
+package com.nitsenkov.integration;
 
 import org.junit.jupiter.api.Test;
 

@@ -1,24 +1,24 @@
-package com.nitsenkov.dao;
+package com.nitsenkov.integration.dao;
 
-import com.nitsenkov.BaseIntegrationTest;
+import com.nitsenkov.integration.BaseIntegrationTest;
 import com.nitsenkov.entity.Account;
 import com.nitsenkov.entity.Card;
 import com.nitsenkov.entity.User;
 import com.nitsenkov.entity.enums.CardStatus;
 import com.nitsenkov.repository.CardRepository;
+import com.nitsenkov.util.TestObjectsBuilder;
+import lombok.RequiredArgsConstructor;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
 
-import static com.nitsenkov.util.TestObjectsBuilder.getAccount;
-import static com.nitsenkov.util.TestObjectsBuilder.getCard;
-import static com.nitsenkov.util.TestObjectsBuilder.getUser;
 import static org.assertj.core.api.Assertions.assertThat;
-
+@RequiredArgsConstructor
 class CardRepositoryIT extends BaseIntegrationTest {
 
-    private CardRepository cardRepository;
+    private final CardRepository cardRepository;
 
     private Card card;
     private Account account;
@@ -26,10 +26,9 @@ class CardRepositoryIT extends BaseIntegrationTest {
 
     @BeforeEach
     void setUp() {
-        cardRepository = context.getBean("cardRepository", CardRepository.class);
-        user = getUser("testEmail");
-        account = getAccount(user);
-        card = getCard(account);
+        user = TestObjectsBuilder.getUser("testEmail");
+        account = TestObjectsBuilder.getAccount(user);
+        card = TestObjectsBuilder.getCard(account);
     }
 
     @Test
@@ -50,7 +49,7 @@ class CardRepositoryIT extends BaseIntegrationTest {
         session.clear();
         Optional<Card> actualCard = cardRepository.findById(savedCard.getId());
 
-        actualCard.ifPresent(c -> assertThat(c.getStatus()).isEqualTo(CardStatus.CLOSED));
+        actualCard.ifPresent(c -> Assertions.assertThat(c.getStatus()).isEqualTo(CardStatus.CLOSED));
     }
 
     @Test
@@ -65,15 +64,15 @@ class CardRepositoryIT extends BaseIntegrationTest {
 
     @Test
     void findCardById() {
-        User user1 = getUser("testEmail1");
-        Account account1 = getAccount(user1);
-        Card card1 = getCard(account1);
-        User user2 = getUser("testEmail2");
-        Account account2 = getAccount(user2);
-        Card card2 = getCard(account2);
-        User user3 = getUser("testEmail3");
-        Account account3 = getAccount(user3);
-        Card card3 = getCard(account3);
+        User user1 = TestObjectsBuilder.getUser("testEmail1");
+        Account account1 = TestObjectsBuilder.getAccount(user1);
+        Card card1 = TestObjectsBuilder.getCard(account1);
+        User user2 = TestObjectsBuilder.getUser("testEmail2");
+        Account account2 = TestObjectsBuilder.getAccount(user2);
+        Card card2 = TestObjectsBuilder.getCard(account2);
+        User user3 = TestObjectsBuilder.getUser("testEmail3");
+        Account account3 = TestObjectsBuilder.getAccount(user3);
+        Card card3 = TestObjectsBuilder.getCard(account3);
         card3.setStatus(CardStatus.CLOSED);
         cardRepository.save(card);
         cardRepository.save(card1);
@@ -83,6 +82,6 @@ class CardRepositoryIT extends BaseIntegrationTest {
 
         Optional<Card> actualCard = cardRepository.findById(savedCard.getId());
 
-        actualCard.ifPresent(c -> assertThat(c.getStatus()).isEqualTo(card3.getStatus()));
+        actualCard.ifPresent(c -> Assertions.assertThat(c.getStatus()).isEqualTo(card3.getStatus()));
     }
 }
