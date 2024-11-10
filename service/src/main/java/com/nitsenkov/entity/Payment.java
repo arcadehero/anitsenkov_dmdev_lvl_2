@@ -43,9 +43,11 @@ public class Payment implements BaseEntity<UUID> {
     private Account recipientAccount;
 
     private BigDecimal amount;
+
+    @Enumerated(EnumType.STRING)
     private Currency currency;
 
-    @Column(name = "payment_date")
+    @Column(name = "payment_date", columnDefinition = "DATE")
     private LocalDateTime paymentDate;
 
     @Enumerated(EnumType.STRING)

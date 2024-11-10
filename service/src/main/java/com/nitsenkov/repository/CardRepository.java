@@ -1,9 +1,9 @@
 package com.nitsenkov.repository;
 
 import com.nitsenkov.entity.Card;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
 
 import java.util.UUID;
 
-public interface CardRepository extends JpaRepository<UUID, Card> {
+public interface CardRepository extends CrudRepository<Card, UUID> {
 }

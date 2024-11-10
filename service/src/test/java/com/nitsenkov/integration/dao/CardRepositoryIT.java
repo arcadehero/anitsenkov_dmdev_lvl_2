@@ -1,10 +1,10 @@
 package com.nitsenkov.integration.dao;
 
-import com.nitsenkov.integration.BaseIntegrationTest;
 import com.nitsenkov.entity.Account;
 import com.nitsenkov.entity.Card;
 import com.nitsenkov.entity.User;
 import com.nitsenkov.entity.enums.CardStatus;
+import com.nitsenkov.integration.BaseIntegrationTest;
 import com.nitsenkov.repository.CardRepository;
 import com.nitsenkov.util.TestObjectsBuilder;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+
 @RequiredArgsConstructor
 class CardRepositoryIT extends BaseIntegrationTest {
 
@@ -45,7 +46,7 @@ class CardRepositoryIT extends BaseIntegrationTest {
         Card savedCard = cardRepository.save(card);
         card.setStatus(CardStatus.CLOSED);
 
-        cardRepository.update(card);
+        cardRepository.save(card);
         session.clear();
         Optional<Card> actualCard = cardRepository.findById(savedCard.getId());
 
@@ -53,7 +54,7 @@ class CardRepositoryIT extends BaseIntegrationTest {
     }
 
     @Test
-    void deleteCard() {//вопросики по cascade
+    void deleteCard() {
         Card savedCard = cardRepository.save(card);
 
         cardRepository.delete(savedCard);

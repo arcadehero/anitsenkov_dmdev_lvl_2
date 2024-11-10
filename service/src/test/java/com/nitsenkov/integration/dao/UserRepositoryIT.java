@@ -38,7 +38,7 @@ public class UserRepositoryIT extends BaseIntegrationTest {
         User savedUser = userRepository.save(user);
         user.setRole(UserRole.ADMINISTRATOR);
 
-        userRepository.(user);
+        userRepository.save(user);
         session.clear();
         Optional<User> actualUser = userRepository.findById(savedUser.getId());
 

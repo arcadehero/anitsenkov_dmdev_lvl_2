@@ -9,4 +9,4 @@ spring:
       dialect: org.hibernate.dialect.PostgreSQLDialect
       show_sql: true
       format_sql: true
-      hbm2ddl.auto: validate
+      default_schema: public
