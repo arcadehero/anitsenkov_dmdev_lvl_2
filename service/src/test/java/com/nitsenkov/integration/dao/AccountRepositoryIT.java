@@ -1,11 +1,11 @@
 package com.nitsenkov.integration.dao;
 
-import com.nitsenkov.integration.BaseIntegrationTest;
 import com.nitsenkov.entity.Account;
 import com.nitsenkov.entity.User;
 import com.nitsenkov.entity.enums.AccountType;
-import com.nitsenkov.util.TestObjectsBuilder;
+import com.nitsenkov.integration.BaseIntegrationTest;
 import com.nitsenkov.repository.AccountRepository;
+import com.nitsenkov.util.TestObjectsBuilder;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -42,7 +42,7 @@ public class AccountRepositoryIT extends BaseIntegrationTest {
         Account savedAccount = accountRepository.save(account);
         account.setType(AccountType.CREDIT);
 
-        accountRepository.update(account);
+        accountRepository.save(account);
 
         session.clear();
         Optional<Account> actualAccount = accountRepository.findById(savedAccount.getId());

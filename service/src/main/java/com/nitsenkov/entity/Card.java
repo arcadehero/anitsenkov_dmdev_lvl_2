@@ -28,7 +28,6 @@ import java.util.UUID;
 @AllArgsConstructor
 @Builder
 @Entity
-@OptimisticLocking(type = OptimisticLockType.VERSION)
 public class Card implements BaseEntity<UUID> {
 
     @Id
@@ -39,8 +38,10 @@ public class Card implements BaseEntity<UUID> {
     private Long version;
 
     private String number;
+
+    @Enumerated(EnumType.STRING)
     private CardType type;
-    private LocalDate expiryDate;
+    private LocalDate expiredDate;
 
     @Enumerated(EnumType.STRING)
     private CardStatus status;

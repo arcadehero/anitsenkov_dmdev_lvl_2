@@ -4,7 +4,14 @@ import com.nitsenkov.entity.Account;
 import com.nitsenkov.entity.Card;
 import com.nitsenkov.entity.Payment;
 import com.nitsenkov.entity.User;
-import com.nitsenkov.entity.enums.*;
+import com.nitsenkov.entity.enums.AccountStatus;
+import com.nitsenkov.entity.enums.AccountType;
+import com.nitsenkov.entity.enums.CardStatus;
+import com.nitsenkov.entity.enums.CardType;
+import com.nitsenkov.entity.enums.Currency;
+import com.nitsenkov.entity.enums.PaymentStatus;
+import com.nitsenkov.entity.enums.UserRole;
+import lombok.experimental.UtilityClass;
 
 import java.math.RoundingMode;
 import java.time.LocalDate;
@@ -12,6 +19,7 @@ import java.time.LocalDateTime;
 
 import static java.math.BigDecimal.valueOf;
 
+@UtilityClass
 public class TestObjectsBuilder {
 
     public static Payment getPayment(Account... account) {
@@ -29,7 +37,7 @@ public class TestObjectsBuilder {
                 .account(account)
                 .number("1234_5678")
                 .status(CardStatus.ACTIVE)
-                .expiryDate(LocalDate.of(2030, 7, 30))
+                .expiredDate(LocalDate.of(2030, 7, 30))
                 .type(CardType.DRIVE)
                 .build();
     }

@@ -46,7 +46,7 @@ public class PaymentRepositoryIT extends BaseIntegrationTest {
         Payment startPayment = paymentRepository.save(payment);
         payment.setCurrency(Currency.RUB);
 
-        paymentRepository.update(payment);
+        paymentRepository.save(payment);
 
         session.clear();
         Optional<Payment> actualPayment = paymentRepository.findById(startPayment.getId());
