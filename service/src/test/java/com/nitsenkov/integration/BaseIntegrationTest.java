@@ -7,9 +7,13 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
+import org.springframework.test.context.jdbc.Sql;
 import org.testcontainers.containers.PostgreSQLContainer;
 
 @IT
+@Sql({
+        "classpath:sql/data.sql"
+})
 public abstract class BaseIntegrationTest {
 
     protected static final PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:17");

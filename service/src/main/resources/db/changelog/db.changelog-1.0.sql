@@ -50,9 +50,3 @@ CREATE TABLE IF NOT EXISTS payment
     status               VARCHAR(128)                 NOT NULL
 );
 -- rollback DROP TABLE payment
-
---CREATE INDEX IF NOT EXISTS account_card_idx ON card (account_id);
---
---CREATE INDEX IF NOT EXISTS account_users_id_idx ON account (users_id);
---
---CREATE INDEX IF NOT EXISTS users_email_idx ON users (email);
